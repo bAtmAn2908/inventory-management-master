@@ -62,7 +62,7 @@ export const api = createApi({
   tagTypes: ["DashboardMetrics", "Products", "Users", "Expenses"],
   endpoints: (build) => ({
     getDashboardMetrics: build.query<DashboardMetrics, void>({
-      query: () => "/dashboard",
+      query: () => "http://18.217.71.217/dashboard",
       providesTags: ["DashboardMetrics"],
     }),
     getProducts: build.query<Product[], string | void>({
