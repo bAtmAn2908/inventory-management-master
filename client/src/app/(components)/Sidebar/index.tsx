@@ -12,6 +12,7 @@ import {
   SlidersHorizontal,
   User,
   Brain,
+  Map,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -94,7 +95,7 @@ const Sidebar = () => {
             isSidebarCollapsed ? "hidden" : "block"
           } font-extrabold text-2xl`}
         >
-          INVENTORY
+          TERRITORY
         </h1>
 
         <button
@@ -147,6 +148,12 @@ const Sidebar = () => {
           href="/ai-insights"
           icon={Brain}
           label="AI Insights"
+          isCollapsed={isSidebarCollapsed}
+        />
+        <SidebarLink
+          href="/sales-territory"
+          icon={Map}
+          label="Sales Territory"
           isCollapsed={isSidebarCollapsed}
         />
       </div>

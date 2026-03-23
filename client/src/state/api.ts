@@ -80,6 +80,36 @@ export interface DemandForecast {
   predictedSales: number;
 }
 
+export interface RegionPerformance {
+  name: string;
+  performance: number;
+  target: number;
+}
+
+export interface RepPerformance {
+  id: string;
+  name: string;
+  territory: string;
+  dealsClosed: number;
+  revenue: number;
+  quotaAttainment: number;
+}
+
+export interface RecentDeal {
+  id: string;
+  client: string;
+  value: number;
+  rep: string;
+  status: string;
+  date: string;
+}
+
+export interface SalesTerritoryResponse {
+  regions: RegionPerformance[];
+  topPerformers: RepPerformance[];
+  recentDeals: RecentDeal[];
+}
+
 export interface AIInsightsResponse {
   restockPredictions: RestockPrediction[];
   expenseAnomalies: ExpenseAnomaly[];
@@ -89,7 +119,7 @@ export interface AIInsightsResponse {
 export const api = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL }),
   reducerPath: "api",
-  tagTypes: ["DashboardMetrics", "Products", "Users", "Expenses", "AIInsights"],
+  tagTypes: ["DashboardMetrics", "Products", "Users", "Expenses", "AIInsights", "SalesTerritory"],
   endpoints: (build) => ({
     getDashboardMetrics: build.query<DashboardMetrics, void>({
       query: () => "/dashboard",
@@ -122,6 +152,10 @@ export const api = createApi({
       query: () => "/ai",
       providesTags: ["AIInsights"],
     }),
+    getSalesTerritory: build.query<SalesTerritoryResponse, void>({
+      query: () => "/sales/territory",
+      providesTags: ["SalesTerritory"],
+    }),
   }),
 });
 
@@ -132,4 +166,5 @@ export const {
   useGetUsersQuery,
   useGetExpensesByCategoryQuery,
   useGetAIInsightsQuery,
+  useGetSalesTerritoryQuery,
 } = api;
