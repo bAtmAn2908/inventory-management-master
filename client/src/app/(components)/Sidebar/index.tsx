@@ -11,6 +11,7 @@ import {
   Menu,
   SlidersHorizontal,
   User,
+  Brain,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -140,6 +141,12 @@ const Sidebar = () => {
           href="/expenses"
           icon={CircleDollarSign}
           label="Expenses"
+          isCollapsed={isSidebarCollapsed}
+        />
+        <SidebarLink
+          href="/ai-insights"
+          icon={Brain}
+          label="AI Insights"
           isCollapsed={isSidebarCollapsed}
         />
       </div>

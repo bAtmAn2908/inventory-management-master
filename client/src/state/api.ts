@@ -56,10 +56,40 @@ export interface User {
   email: string;
 }
 
+export interface RestockPrediction {
+  productId: string;
+  name: string;
+  currentStock: number;
+  predictedDepletionDays: number;
+  aiConfidenceScore: number;
+  recommendation: string;
+}
+
+export interface ExpenseAnomaly {
+  id: string;
+  category: string;
+  amount: number;
+  date: string;
+  isAnomaly: boolean;
+  description: string;
+}
+
+export interface DemandForecast {
+  date: string;
+  actualSales: number;
+  predictedSales: number;
+}
+
+export interface AIInsightsResponse {
+  restockPredictions: RestockPrediction[];
+  expenseAnomalies: ExpenseAnomaly[];
+  demandForecasting: DemandForecast[];
+}
+
 export const api = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL }),
   reducerPath: "api",
-  tagTypes: ["DashboardMetrics", "Products", "Users", "Expenses"],
+  tagTypes: ["DashboardMetrics", "Products", "Users", "Expenses", "AIInsights"],
   endpoints: (build) => ({
     getDashboardMetrics: build.query<DashboardMetrics, void>({
       query: () => "/dashboard",
@@ -88,6 +118,10 @@ export const api = createApi({
       query: () => "/expenses",
       providesTags: ["Expenses"],
     }),
+    getAIInsights: build.query<AIInsightsResponse, void>({
+      query: () => "/ai",
+      providesTags: ["AIInsights"],
+    }),
   }),
 });
 
@@ -97,4 +131,5 @@ export const {
   useCreateProductMutation,
   useGetUsersQuery,
   useGetExpensesByCategoryQuery,
+  useGetAIInsightsQuery,
 } = api;
